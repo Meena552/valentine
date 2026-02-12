@@ -2,164 +2,186 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Valentine’s Day ❤️</title>
+  <title>Valentine Surprise 💖</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background: black;
       color: white;
-      text-align: center;
       font-family: 'Segoe UI', sans-serif;
+      text-align: center;
       overflow-x: hidden;
     }
 
-    .teddy {
-      font-size: 80px;
-      animation: float 2s infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+    h1, h2, h3 {
+      color: pink;
     }
 
     button {
       padding: 12px 25px;
       font-size: 18px;
-      margin: 10px;
       border-radius: 25px;
       border: none;
       cursor: pointer;
+      background: hotpink;
+      color: white;
     }
 
-    .yes { background: pink; }
-    .no { background: lightgray; position: absolute; }
+    /* Question Section */
+    #question {
+      margin-top: 120px;
+    }
 
-    #gifts img {
+    /* Gift Boxes */
+    .gift-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .gift-box {
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, pink, deeppink);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Gift Content */
+    #giftContent {
+      margin-top: 40px;
+    }
+
+    .letter, .card {
+      background: rgba(255, 192, 203, 0.15);
+      padding: 25px;
+      border-radius: 20px;
+      display: inline-block;
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .blast {
+      font-size: 30px;
+      margin-top: 15px;
+      animation: float 2s infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    img {
       margin: 10px;
-      border-radius: 10px;
-    }
-
-    /* Stars */
-    .star {
-      position: fixed;
-      width: 2px;
-      height: 2px;
-      background: white;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      from { transform: translateY(-100px); }
-      to { transform: translateY(100vh); }
+      border-radius: 15px;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Question Section -->
-  <div id="question">
-    <div class="teddy">🧸💖</div>
-    <h1>Will you be my Valentine?</h1>
-    <button class="yes" onclick="sayYes()">Yes 💕</button>
-    <button class="no" onclick="sayNo()">No 😜</button>
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="song1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Gift 1 Music -->
+<audio id="giftMusic">
+  <source src="song2.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Question -->
+<div id="question">
+  <h1>Will you be my Valentine? 💖</h1>
+  <button onclick="sayYes()">Yes 💕</button>
+</div>
+
+<!-- Gifts Section -->
+<div id="gifts" style="display:none;">
+  <h2>🎁 Your Special Gifts 🎁</h2>
+
+  <div class="gift-container">
+    <div class="gift-box" onclick="openGift(1)">🎁 Gift 1</div>
+    <div class="gift-box" onclick="openGift(2)">🎁 Gift 2</div>
+    <div class="gift-box" onclick="openGift(3)">🎁 Gift 3</div>
   </div>
 
-  <!-- Gifts Section -->
-  <div id="gifts" style="display:none;">
-    <h1>I love you ❤️ Happy Valentine’s Day 💕</h1>
-    <h2>🎁 Your Gifts 🎁</h2>
-
-    <button onclick="openGift(1)">Gift 1 🎵</button>
-    <button onclick="openGift(2)">Gift 2 💌</button>
-    <button onclick="openGift(3)">Gift 3 📸</button>
-
-    <div id="giftContent"></div>
-  </div>
+  <div id="giftContent"></div>
+</div>
 
 <script>
-let noCount = 0;
-
 function sayYes() {
   document.getElementById("question").style.display = "none";
   document.getElementById("gifts").style.display = "block";
-}
 
-function sayNo() {
-  noCount++;
-
-  const noBtn = document.querySelector(".no");
-
-  if (noCount === 1) alert("Vena 😏");
-  if (noCount === 2) alert("Vena Aludhuruva 😢");
-  if (noCount === 3) alert("Mandaiya Odachuruva Paathuko 😡");
-
-  noBtn.style.left = Math.random() * window.innerWidth + "px";
-  noBtn.style.top = Math.random() * window.innerHeight + "px";
+  const bg = document.getElementById("bgMusic");
+  bg.volume = 0.5;
+  bg.play();
 }
 
 function openGift(num) {
   const content = document.getElementById("giftContent");
+  const giftMusic = document.getElementById("giftMusic");
 
- if (num === 1) {
-  content.innerHTML = `
-    <h3>🎵 Our Favourite Songs</h3>
-    <audio id="player" controls>
-      <source src="song1.mp3" type="audio/mpeg">
-    </audio>
-  `;
+  giftMusic.pause();
+  giftMusic.currentTime = 0;
 
-  const player = document.getElementById("player");
-  player.load();
-
-  player.onended = () => {
-    player.src = "song2.mp3";
-    player.load();
-    player.play();
-  };
-}
+  if (num === 1) {
+    giftMusic.play();
+    content.innerHTML = `
+      <div class="letter">
+        <h3>💌 A Letter Just for You</h3>
+        <p>
+          Ne en life-la vandhadhu enaku romba special ❤️<br><br>
+          Na unna romba love panren 💕<br>
+          Epavume unna vittu pogama irukanum 😘
+        </p>
+      </div>
+    `;
+  }
 
   if (num === 2) {
     content.innerHTML = `
-      <p style="font-size:18px;">
-      Na una romba love panra ❤️<br><br>
-      Ne enakaga epavum irukanum.<br>
-      Enaku edhavadhu problem varumbothu  
-      ne first person ah irundhu adha solve pananum.<br><br>
-      Na sogama irundhalum sad ah feel panalum  
-      ne en kaiya pudichu  
-      "na iruka rendu peru paathukalam"  
-      nu sonna romba pudikum 💕<br><br>
-      Happy Valentine’s Day ❤️
-      </p>
+      <div class="card">
+        <h3>🌸 My Heart 🌸</h3>
+        <p>
+          Ne siricha podhum enaku ellame perfect-aa theriyum 😍<br><br>
+          Na sogama irundhalum ne irundha podhum 💖
+        </p>
+        <div class="blast">🦋 🌸 💥 🦋 🌸 💥</div>
+      </div>
     `;
   }
 
   if (num === 3) {
     content.innerHTML = `
-      <h3>📸 Our Memories</h3>
-      <img src="photos/pics1.png" width="200">
-      <img src="photos/pics2.png" width="200">
-      <img src="photos/pics3.png" width="200">
-      <img src="photos/pics3.png" width="200">
-      <img src="photos/pics5.png" width="200">
+      <div class="card">
+        <h3>📸 Our Memories</h3>
+        <img src="photos/pic1.png" width="180">
+        <img src="photos/pic2.png" width="180">
+        <img src="photos/pic3.png" width="180">
+      </div>
     `;
   }
-}
-
-/* Stars animation */
-for (let i = 0; i < 50; i++) {
-  let star = document.createElement("div");
-  star.className = "star";
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.animationDuration = (Math.random() * 3 + 2) + "s";
-  document.body.appendChild(star);
 }
 </script>
 
 </body>
 </html>
-
