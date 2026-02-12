@@ -108,8 +108,8 @@ function openGift(num) {
     content.innerHTML = `
       <h3>🎵 Our Favourite Songs</h3>
       <audio controls autoplay>
-        <source src="song1.mp3" type="audio/mpeg">
-        <source src="song2.mp3" type="audio/mpeg">
+        <source src="song1.mpeg" type="audio/mpeg">
+        <source src="song2.mpeg" type="audio/mpeg">
       </audio>
     `;
   }
@@ -133,11 +133,11 @@ function openGift(num) {
   if (num === 3) {
     content.innerHTML = `
       <h3>📸 Our Memories</h3>
-      <img src="photos/pics1.jpg" width="200">
-      <img src="photos/pics2.jpg" width="200">
-      <img src="photos/pics3.jpg" width="200">
-      <img src="photos/pics3.jpg" width="200">
-      <img src="photos/pics5.jpg" width="200">
+      <img src="photos/pics1.png" width="200">
+      <img src="photos/pics2.png" width="200">
+      <img src="photos/pics3.png" width="200">
+      <img src="photos/pics3.png" width="200">
+      <img src="photos/pics5.png" width="200">
     `;
   }
 }
