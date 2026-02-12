@@ -1,4 +1,3 @@
-# valentine
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,117 +5,152 @@
 <title>For My Valentine ❤️</title>
 
 <style>
-  body {
-    background: linear-gradient(to right, #ffb6c1, #ffd1dc);
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-  }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #ffb6c1, #ffd1dc);
+  text-align: center;
+  overflow: hidden;
+}
 
-  h1 {
-    color: #b30059;
-    font-size: 42px;
-    margin-top: 40px;
-  }
+h1 {
+  color: #b30059;
+  margin-top: 40px;
+}
 
-  .teddy {
-    font-size: 90px;
-    animation: float 2s infinite ease-in-out;
-  }
+button {
+  padding: 12px 30px;
+  font-size: 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin: 15px;
+}
 
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-  }
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn  { background: gray; color: white; position: absolute; }
 
-  .hearts {
-    font-size: 28px;
-    color: red;
-  }
+.hidden { display: none; }
 
-  button {
-    padding: 12px 30px;
-    font-size: 20px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    margin: 15px;
-  }
+.gift {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 15px;
+  cursor: pointer;
+  font-size: 22px;
+}
 
-  #yesBtn {
-    background-color: #ff4d88;
-    color: white;
-  }
+/* Floating stars & butterflies */
+.star, .butterfly {
+  position: absolute;
+  animation: float 6s infinite linear;
+}
 
-  #noBtn {
-    background-color: #777;
-    color: white;
-    position: relative;
-  }
+.star {
+  color: white;
+  font-size: 14px;
+}
 
-  #message {
-    font-size: 26px;
-    color: #800040;
-    margin-top: 20px;
-    min-height: 40px;
-  }
+.butterfly {
+  font-size: 24px;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
 </style>
 </head>
 
 <body>
 
-  <!-- TEDDY -->
-  <div class="teddy">🧸</div>
-  <div class="hearts">💌 💕 💖 💞</div>
+<div id="question">
+  <div style="font-size:80px;">🧸💖</div>
+  <h1>Will you be my Valentine?</h1>
+  <button id="yesBtn" onclick="showGifts()">Yes 💘</button>
+  <button id="noBtn" onclick="noClicked()">No 😏</button>
+  <p id="noMsg"></p>
+</div>
 
-  <!-- QUESTION -->
-  <h1>Will you be my Valentine? 💘</h1>
+<div id="gifts" class="hidden">
+  <h1>🎁 Your Gifts 🎁</h1>
 
-  <!-- BUTTONS -->
-  <button id="yesBtn" onclick="yesClicked()">YES 💖</button>
-  <button id="noBtn" onclick="noClicked()">NO 😒</button>
+  <div class="gift" onclick="playSong()">🎵 Gift 1 – Our Song</div>
+  <div class="gift" onclick="showMessage()">💌 Gift 2 – My Heart</div>
+  <div class="gift" onclick="showPhotos()">📸 Gift 3 – Our Memories</div>
 
-  <!-- MESSAGE -->
-  <div id="message"></div>
+  <div id="content"></div>
+</div>
+
+<audio id="song" src="song.mp3"></audio>
 
 <script>
-  let noCount = 0;
+let noCount = 0;
+const msgs = [
+  "Vena 😤",
+  "Vena Aludhuruva 😢",
+  "Mandaiya Odachuruva Paathuko 😡"
+];
 
-  function noClicked() {
+function noClicked() {
+  if (noCount < msgs.length) {
+    document.getElementById("noMsg").innerText = msgs[noCount];
     noCount++;
-
-    const msg = document.getElementById("message");
-    const noBtn = document.getElementById("noBtn");
-
-    if (noCount === 1) {
-      msg.innerHTML = "Vena 😤";
-    } 
-    else if (noCount === 2) {
-      msg.innerHTML = "Vena Aludhuruva 😢";
-    } 
-    else if (noCount === 3) {
-      msg.innerHTML = "Mandaiya Odachuruva Paathuko 😡💥";
-    } 
-    else {
-      // RUN AWAY MODE
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 60);
-      noBtn.style.position = "absolute";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
+  } else {
+    moveNo();
   }
+}
 
-  function yesClicked() {
-    document.body.innerHTML = `
-      <h1 style="margin-top:20%">Yayyy 😍💖</h1>
-      <h2>I Love You Forever 💞</h2>
-      <p style="font-size:22px;">Happy Valentine’s Day 💐</p>
-      <p style="font-size:20px;">— Yours always, Meena 💕</p>
-      <div style="font-size:80px;">🧸💖🧸</div>
-    `;
-  }
+function moveNo() {
+  const btn = document.getElementById("noBtn");
+  btn.style.left = Math.random()*80 + "%";
+  btn.style.top  = Math.random()*80 + "%";
+}
+
+function showGifts() {
+  document.getElementById("question").style.display = "none";
+  document.getElementById("gifts").classList.remove("hidden");
+}
+
+function playSong() {
+  document.getElementById("song").play();
+  document.getElementById("content").innerHTML =
+    "<h2>🎶 Close your eyes & feel us 💖</h2>";
+}
+
+function showMessage() {
+  document.getElementById("content").innerHTML = `
+  <p style="font-size:20px; color:#800040; padding:20px;">
+  Na una romba love panra 💕<br><br>
+  Ne enakaga epavum irukanum.<br>
+  Enaku edhavadhu problem varumbothu,
+  ne first person ah irundhu adha solve pananum.<br><br>
+  Na sogama irundhalu, sad ah feel panalu,
+  ne en kaiya pudichu
+  "na iruka, rendu peru paathukla"
+  nu sonna… enaku romba pudikum ❤️<br><br>
+  Happy Valentine’s Day 💖
+  </p>`;
+}
+
+function showPhotos() {
+  document.getElementById("content").innerHTML = `
+  <img src="photo1/pic1.jpg" width="200">
+  <img src="photo2/pic2.jpg" width="200">
+  <img src="photo3/pic3.jpg" width="200">
+  <img src="photo4/pic4.jpg" width="200">`;
+}
+
+/* Stars & butterflies generator */
+setInterval(() => {
+  const el = document.createElement("div");
+  el.className = Math.random() > 0.5 ? "star" : "butterfly";
+  el.innerHTML = el.className === "star" ? "⭐" : "🦋";
+  el.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),6000);
+}, 300);
 </script>
 
 </body>
