@@ -106,12 +106,12 @@ function openGift(num) {
 
   if (num === 1) {
     content.innerHTML = `
-      <h3>🎵 Our Favourite Songs</h3>
-      <audio controls autoplay>
-        <source src="song1.mpeg" type="audio/mpeg">
-        <source src="song2.mpeg" type="audio/mpeg">
-      </audio>
-    `;
+     <h3>🎵 Our Favourite Songs</h3>
+  <button onclick="playSong('song1.mp3')">Song 1 💖</button>
+  <button onclick="playSong('song2.mp3')">Song 2 💕</button>
+
+  <audio id="player" controls></audio>
+`;
   }
 
   if (num === 2) {
