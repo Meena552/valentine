@@ -1,1 +1,123 @@
 # valentine
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Valentine ❤️</title>
+
+<style>
+  body {
+    background: linear-gradient(to right, #ffb6c1, #ffd1dc);
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  h1 {
+    color: #b30059;
+    font-size: 42px;
+    margin-top: 40px;
+  }
+
+  .teddy {
+    font-size: 90px;
+    animation: float 2s infinite ease-in-out;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .hearts {
+    font-size: 28px;
+    color: red;
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 15px;
+  }
+
+  #yesBtn {
+    background-color: #ff4d88;
+    color: white;
+  }
+
+  #noBtn {
+    background-color: #777;
+    color: white;
+    position: relative;
+  }
+
+  #message {
+    font-size: 26px;
+    color: #800040;
+    margin-top: 20px;
+    min-height: 40px;
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- TEDDY -->
+  <div class="teddy">🧸</div>
+  <div class="hearts">💌 💕 💖 💞</div>
+
+  <!-- QUESTION -->
+  <h1>Will you be my Valentine? 💘</h1>
+
+  <!-- BUTTONS -->
+  <button id="yesBtn" onclick="yesClicked()">YES 💖</button>
+  <button id="noBtn" onclick="noClicked()">NO 😒</button>
+
+  <!-- MESSAGE -->
+  <div id="message"></div>
+
+<script>
+  let noCount = 0;
+
+  function noClicked() {
+    noCount++;
+
+    const msg = document.getElementById("message");
+    const noBtn = document.getElementById("noBtn");
+
+    if (noCount === 1) {
+      msg.innerHTML = "Vena 😤";
+    } 
+    else if (noCount === 2) {
+      msg.innerHTML = "Vena Aludhuruva 😢";
+    } 
+    else if (noCount === 3) {
+      msg.innerHTML = "Mandaiya Odachuruva Paathuko 😡💥";
+    } 
+    else {
+      // RUN AWAY MODE
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+  }
+
+  function yesClicked() {
+    document.body.innerHTML = `
+      <h1 style="margin-top:20%">Yayyy 😍💖</h1>
+      <h2>I Love You Forever 💞</h2>
+      <p style="font-size:22px;">Happy Valentine’s Day 💐</p>
+      <p style="font-size:20px;">— Yours always, Meena 💕</p>
+      <div style="font-size:80px;">🧸💖🧸</div>
+    `;
+  }
+</script>
+
+</body>
+</html>
