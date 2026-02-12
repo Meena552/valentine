@@ -104,15 +104,23 @@ function sayNo() {
 function openGift(num) {
   const content = document.getElementById("giftContent");
 
-  if (num === 1) {
-    content.innerHTML = `
-     <h3>🎵 Our Favourite Songs</h3>
-  <button onclick="playSong('song1.mp3')">Song 1 💖</button>
-  <button onclick="playSong('song2.mp3')">Song 2 💕</button>
+ if (num === 1) {
+  content.innerHTML = `
+    <h3>🎵 Our Favourite Songs</h3>
+    <audio id="player" controls>
+      <source src="song1.mp3" type="audio/mpeg">
+    </audio>
+  `;
 
-  <audio id="player" controls></audio>
-`;
-  }
+  const player = document.getElementById("player");
+  player.load();
+
+  player.onended = () => {
+    player.src = "song2.mp3";
+    player.load();
+    player.play();
+  };
+}
 
   if (num === 2) {
     content.innerHTML = `
